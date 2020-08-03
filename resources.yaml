@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: sinatra-hello-world-git-pipeline
+  namespace: tekton-pipelines
+  description: Git Repository with Dockerfile
+spec:
+  type: git
+  params:
+    - name: revision
+      value: main
+    - name: url
+      value: https://github.com/BrianMMcClain/sinatra-hello-world
+    - name: provider
+      value: github
+--- 
+
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: sinatra-hello-world-tekton-demo-image
+  namespace: tekton-pipelines
+  description: Docker-Hub Image
+spec:
+  type: image
+  params:
+    - name: url
+      value: index.docker.io/manikanthreddy/kubernetes

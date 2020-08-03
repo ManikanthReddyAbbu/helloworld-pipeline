@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: build-docker-image-from-git-source-task-run
+  namespace: tekton-pipelines
+spec:
+  serviceAccountName: dockerhub-service
+  taskRef:
+    name: build-docker-image-from-git-source
+  params:
+    - name: pathToDockerFile
+      value: Dockerfile
+  resources:
+    inputs:
+      - name: docker-source
+        resourceRef:
+          name: sinatra-hello-world-git-pipeline
+    outputs:
+      - name: builtImage
+        resourceRef:
+          name: sinatra-hello-world-tekton-demo-image
